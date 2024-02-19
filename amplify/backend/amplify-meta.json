@@ -1,0 +1,56 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-testnumbers-dev-182013-authRole",
+      "UnauthRoleArn": "arn:aws:iam::851725198723:role/amplify-testnumbers-dev-182013-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::851725198723:role/amplify-testnumbers-dev-182013-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-testnumbers-dev-182013-deployment",
+      "UnauthRoleName": "amplify-testnumbers-dev-182013-unauthRole",
+      "StackName": "amplify-testnumbers-dev-182013",
+      "StackId": "arn:aws:cloudformation:eu-central-1:851725198723:stack/amplify-testnumbers-dev-182013/d0657290-cdb8-11ee-81d4-06dfc8784b4f",
+      "AmplifyAppId": "d2avi9okg9ko4a"
+    }
+  },
+  "api": {
+    "testnumbers": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "API_KEY",
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 7
+            }
+          },
+          "additionalAuthenticationProviders": []
+        },
+        "GraphQLAPIIdOutput": "jr2b7ee75vh23evrgd6iemf3z4",
+        "GraphQLAPIEndpointOutput": "https://w5zq67kfefhrfozjziecfqq2qa.appsync-api.eu-central-1.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-pl4n4bvdwnbt5czlcpf6nd523y"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-testnumbers-dev-182013-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apitestnumbers"
+      },
+      "lastPushTimeStamp": "2024-02-18T07:57:13.011Z",
+      "lastPushDirHash": "msiMadXIVTO77IWRNc7gV9DW4cM="
+    }
+  },
+  "hosting": {
+    "amplifyhosting": {
+      "service": "amplifyhosting",
+      "providerPlugin": "awscloudformation",
+      "type": "manual",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-testnumbers-dev-182013-deployment/amplify-cfn-templates/hosting/amplifyhosting-template.json",
+        "logicalId": "hostingamplifyhosting"
+      },
+      "lastPushTimeStamp": "2024-02-18T07:57:13.020Z",
+      "output": {},
+      "lastPushDirHash": "VOjcB7BapD94GA7xBAAxmEMXJTo="
+    }
+  }
+}

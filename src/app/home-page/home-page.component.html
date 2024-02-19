@@ -1,0 +1,15 @@
+<div class="wrapper">
+    <div class="feed">
+        <div class="feed-title">Numbers from data base</div>
+        <div class="feed-content">
+            <span *ngFor="let item of allNumbers">{{item}}</span>
+        </div>
+    </div>
+    <form [formGroup]="formNumbers" (ngSubmit)="onSubmit()">
+        <input type="number" formControlName="number">
+        <div class="actions">
+            <button class="main-btn" type="submit">Submit</button>
+            <button class="main-btn" type="button" (click)="onReport()">Report</button>
+        </div>
+    </form>
+</div>
