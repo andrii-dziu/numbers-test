@@ -1,27 +1,41 @@
-# TestNumbers
+## Project Overview
+1. **The UI is implemented using Angular**
+2. **Amplify is used to interact with AppSync**
+3. **GraphQL is used to interact with AppSync**
+3. **It retrieves records from DynamoDB**
+4. **Allows entering new values from the UI for modification**
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.12.
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Installation
 
-## Code scaffolding
+1. **Node.js Version:**
+   - This project requires Node.js version 16 or higher. If you don't have it installed, download it from [Node.js website](https://nodejs.org/).
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+2. **Clone the Repository:**
+   ```bash
+   git clone [repository-url]
+   cd [project-folder]
 
-## Build
+2. **Run:**
+   ```bash
+   npm install
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+## Usage
+1. **Run the project locally using the following command:**
+   ```bash
+   ng serve
+2. **Open your browser and navigate to http://localhost:4200/ to view the application.:**
+3. **The hosted version of the project is available here [numbers](https://dev.d2avi9okg9ko4a.amplifyapp.com/).**
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Contributing
 
-## Further help
+Pull requests are welcome. For major changes, please open an issue first
+to discuss what you would like to change.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
