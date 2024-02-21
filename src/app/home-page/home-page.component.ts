@@ -1,25 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { generateClient, type Client } from 'aws-amplify/api';
+import { generateClient } from 'aws-amplify/api';
 import * as mutations from '../../graphql/mutations';
 import * as queries from '../../graphql/queries';
+import * as subscriptions from '../../graphql/subscriptions';
 import { ResponseNumberValues } from '../types/response.interface';
 import { nanoid } from 'nanoid';
+import { Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
 })
-export class HomePageComponent implements OnInit {
-  formNumbers!: FormGroup;
-  allNumbers: ResponseNumberValues[] = [];
+export class HomePageComponent implements OnInit, OnDestroy {
+  public formNumbers!: FormGroup;
+  public allNumbers: ResponseNumberValues[] = [];
+  public sum: number = 0;
+  public showAll$: Subject<boolean> = new Subject();
+  private subscription$!: Subscription;
 
   public client: any;
 
-  constructor(
-    private fb: FormBuilder 
-  ) {
+  constructor(private fb: FormBuilder) {
     this.client = generateClient();
   }
 
@@ -28,7 +31,11 @@ export class HomePageComponent implements OnInit {
       number: ['', [Validators.required, Validators.maxLength(10)]],
     });
 
-    this.onReport();
+    this.subscription$ = this.client
+      .graphql({ query: subscriptions.onCreateNumberValue })
+      .subscribe((data: any) => {
+        this.sum += data.data.onCreateNumberValue.value;
+      });
   }
 
   public async onSubmit(): Promise<any> {
@@ -46,7 +53,6 @@ export class HomePageComponent implements OnInit {
           input: newData,
         },
       });
-      console.log('Number added', response);
       this.formNumbers.reset();
     } catch (e) {
       console.log('Error adding a number...', e);
@@ -60,5 +66,11 @@ export class HomePageComponent implements OnInit {
     this.allNumbers = response.data.listNumberValues.items.map(
       (item: any) => item.value
     );
+
+    this.showAll$.next(true);
+  }
+
+  public ngOnDestroy() {
+    this.subscription$?.unsubscribe();
   }
 }

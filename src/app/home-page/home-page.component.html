@@ -1,7 +1,8 @@
 <div class="wrapper">
     <div class="feed">
         <div class="feed-title">Numbers from data base</div>
-        <div class="feed-content">
+        <div class="feed-content" *ngIf="!(showAll$ | async)">SUM: {{sum}}</div>
+        <div class="feed-content" *ngIf="showAll$ | async">
             <span *ngFor="let item of allNumbers">{{item}}</span>
         </div>
     </div>
