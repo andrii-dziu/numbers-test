@@ -6,7 +6,10 @@ import * as queries from '../../graphql/queries';
 import * as subscriptions from '../../graphql/subscriptions';
 import { ResponseNumberValues } from '../types/response.interface';
 import { nanoid } from 'nanoid';
-import { Subject, Subscription } from 'rxjs';
+import { Subject, Subscription, merge, switchMap } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { sumActions } from '../store/actions';
+import { SumState, selectSum } from '../store/reducers';
 
 @Component({
   selector: 'app-home-page',
@@ -18,11 +21,14 @@ export class HomePageComponent implements OnInit, OnDestroy {
   public allNumbers: ResponseNumberValues[] = [];
   public sum: number = 0;
   public showAll$: Subject<boolean> = new Subject();
-  private subscription$!: Subscription;
+  public subscription$: Subscription | undefined;
 
   public client: any;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private store: Store<{ sum: SumState }>
+  ) {
     this.client = generateClient();
   }
 
@@ -32,11 +38,15 @@ export class HomePageComponent implements OnInit, OnDestroy {
     });
 
     this.subscription$ = this.client
-      .graphql({ query: subscriptions.onCreateNumberValue })
-      .subscribe((data: any) => {
-        this.sum += data.data.onCreateNumberValue.value;
-      });
+    .graphql({ query: subscriptions.onCreateNumberValue })
+    .pipe(
+      switchMap(() => this.store.select(selectSum))
+    )
+    .subscribe((d: any) => {
+      this.sum = d;
+    });
   }
+
 
   public async onSubmit(): Promise<any> {
     if (this.formNumbers.invalid) {
@@ -53,6 +63,11 @@ export class HomePageComponent implements OnInit, OnDestroy {
           input: newData,
         },
       });
+
+
+      this.store.dispatch(sumActions.summarizedSuccessfully({request: {value:  Number(this.formNumbers.value.number)}}));
+      this.showAll$.next(false);
+      console.log('Number added', response);
       this.formNumbers.reset();
     } catch (e) {
       console.log('Error adding a number...', e);

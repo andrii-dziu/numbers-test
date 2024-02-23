@@ -8,7 +8,7 @@ type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryOutput: OutputType;
 };
 
-export const getNumberValue = /* GraphQL */ `query GetNumberValue($id: ID!) {
+export const getNumberValue = /* GraphQL */ `query GetNumberValue($id: ID) {
   getNumberValue(id: $id) {
     id
     value
